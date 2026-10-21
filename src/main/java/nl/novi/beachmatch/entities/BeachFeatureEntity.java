@@ -7,17 +7,17 @@ import jakarta.persistence.*;
 public class BeachFeatureEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long beachfeatureId;
+    private Long beachFeatureId;
 
     private String name;
     private String description;
 
-    public Long getBeachfeatureId() {
-        return beachfeatureId;
+    public Long getBeachFeatureId() {
+        return beachFeatureId;
     }
 
-    public void setBeachfeatureId(Long beachfeatureId) {
-        this.beachfeatureId = beachfeatureId;
+    public void setBeachFeatureId(Long beachFeatureId) {
+        this.beachFeatureId = beachFeatureId;
     }
 
     public String getName() {
