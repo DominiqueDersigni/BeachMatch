@@ -1,6 +1,7 @@
 package nl.novi.beachmatch.entities;
 
 import jakarta.persistence.*;
+import nl.novi.beachmatch.enums.ModeOfTransport;
 
 import java.util.List;
 
@@ -13,10 +14,15 @@ public class UserEntity {
 
     private String name;
     private String address;
+    private String city;
     private Integer age;
     private String email;
     private String keycloakId;
-    private String modeOfTransport;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private List<ModeOfTransport> modesOfTransport;
+
     private String profilePhotoFileName;
     private String profilePhotoContentType;
 
@@ -53,6 +59,14 @@ public class UserEntity {
         this.address = address;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public Integer getAge() {
         return age;
     }
@@ -77,12 +91,12 @@ public class UserEntity {
         this.keycloakId = keycloakId;
     }
 
-    public String getModeOfTransport() {
-        return modeOfTransport;
+    public List<ModeOfTransport> getModesOfTransport() {
+        return modesOfTransport;
     }
 
-    public void setModeOfTransport(String modeOfTransport) {
-        this.modeOfTransport = modeOfTransport;
+    public void setModesOfTransport(List<ModeOfTransport> modesOfTransport) {
+        this.modesOfTransport = modesOfTransport;
     }
 
     public String getProfilePhotoFileName() {
