@@ -14,11 +14,12 @@ public class BeachEntity {
     private Long beachId;
 
     private String name;
+    private String description;
+    private String province;
     private Double latitude;
     private Double longitude;
-    private String municipality;
-    private String province;
-    private String description;
+
+
 
     @OneToOne
     @JoinColumn(name = "photo_id")
@@ -68,14 +69,6 @@ public class BeachEntity {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
-    }
-
-    public String getMunicipality() {
-        return municipality;
-    }
-
-    public void setMunicipality(String municipality) {
-        this.municipality = municipality;
     }
 
     public String getProvince() {
