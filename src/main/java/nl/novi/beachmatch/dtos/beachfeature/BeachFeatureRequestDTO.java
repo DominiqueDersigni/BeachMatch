@@ -3,7 +3,7 @@ package nl.novi.beachmatch.dtos.beachfeature;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class BeachFeatureRequestDto {
+public class BeachFeatureRequestDTO {
     @NotBlank(message = "Name cannot be blank")
     @Size(min = 3, max = 100, message = "Name needs to be between 3 and 100 characters")
     private String name;

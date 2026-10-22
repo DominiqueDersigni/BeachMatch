@@ -2,7 +2,7 @@ package nl.novi.beachmatch.dtos.favorite;
 
 import jakarta.validation.constraints.NotNull;
 
-public class FavoriteRequestDto {
+public class FavoriteRequestDTO {
     @NotNull(message = "beachId cannot be empty")
     private Long beachId;
 

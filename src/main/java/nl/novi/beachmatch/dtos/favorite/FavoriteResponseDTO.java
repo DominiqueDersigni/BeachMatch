@@ -1,6 +1,6 @@
 package nl.novi.beachmatch.dtos.favorite;
 
-public class FavoriteResponseDto {
+public class FavoriteResponseDTO {
     private Long id;
     private Long beachId;
     private String beachName;

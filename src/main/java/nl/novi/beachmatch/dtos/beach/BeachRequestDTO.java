@@ -1,20 +1,25 @@
 package nl.novi.beachmatch.dtos.beach;
 
-public class BeachResponseDto {
-    private Long id;
+import jakarta.validation.constraints.*;
+
+public class BeachRequestDTO {
+    @NotBlank(message = "Name cannot be blank")
+    @Size(min = 3, max = 100, message = "Name needs to be between 3 and 100 characters")
     private String name;
+    @NotBlank(message = "Description cannot be blank")
+    @Size(max = 255, message = "Description cannot be longer than 255 characters")
     private String description;
+    @NotBlank(message = "Province cannot be blank")
     private String province;
+    @NotNull(message = "Latitude cannot be empty")
+    @DecimalMin(value = "50.7", message = "Latitude must be within the Netherlands")
+    @DecimalMax(value = "53.6", message = "Latitude must be within the Netherlands")
     private Double latitude;
+    @NotNull(message = "Longitude cannot be empty")
+    @DecimalMin(value = "3.3", message = "Longitude must be within the Netherlands")
+    @DecimalMax(value = "7.3", message = "Longitude must be within the Netherlands")
     private Double longitude;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

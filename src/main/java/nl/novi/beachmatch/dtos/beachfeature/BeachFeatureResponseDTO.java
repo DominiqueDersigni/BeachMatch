@@ -1,6 +1,6 @@
 package nl.novi.beachmatch.dtos.beachfeature;
 
-public class BeachFeatureResponseDto {
+public class BeachFeatureResponseDTO {
     private Long id;
     private String name;
     private String description;

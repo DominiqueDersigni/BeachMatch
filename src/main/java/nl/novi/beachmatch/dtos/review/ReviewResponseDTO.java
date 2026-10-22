@@ -2,7 +2,7 @@ package nl.novi.beachmatch.dtos.review;
 
 import java.time.LocalDateTime;
 
-public class ReviewResponseDto {
+public class ReviewResponseDTO {
     private Long id;
     private String title;
     private String text;

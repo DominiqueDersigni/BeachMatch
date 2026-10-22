@@ -2,7 +2,7 @@ package nl.novi.beachmatch.dtos.review;
 
 import jakarta.validation.constraints.*;
 
-public class ReviewRequestDto {
+public class ReviewRequestDTO {
 
     @NotBlank(message = "Title cannot be blank")
     @Size(min = 3, max = 100, message = "Title needs to be between 3 and 100 characters")

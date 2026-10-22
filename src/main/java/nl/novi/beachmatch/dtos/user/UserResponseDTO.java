@@ -1,23 +1,41 @@
 package nl.novi.beachmatch.dtos.user;
 
-import jakarta.validation.constraints.*;
 import nl.novi.beachmatch.enums.ModeOfTransport;
 
 import java.util.List;
 
-public class UserRequestDto {
-    @NotBlank(message = "Address cannot be blank")
-    @Size(min = 3, max = 100, message = "Address needs to be between 3 and 100 characters")
+public class UserResponseDTO {
+    private Long id;
+    private String name;
+    private String email;
     private String address;
-    @NotBlank(message = "City cannot be blank")
-    @Size(min = 3, max = 50, message = "City needs to be between 3 and 50 characters")
     private String city;
-    @NotNull(message = "Age cannot be empty")
-    @Min(value = 12, message = "Age must be at least 12")
-    @Max(value = 100, message = "Age cannot be higher than 100")
     private Integer age;
-    @NotEmpty(message = "Choose at least one mode of transport")
     private List<ModeOfTransport> modesOfTransport;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getAddress() {
         return address;
@@ -51,4 +69,3 @@ public class UserRequestDto {
         this.modesOfTransport = modesOfTransport;
     }
 }
-
