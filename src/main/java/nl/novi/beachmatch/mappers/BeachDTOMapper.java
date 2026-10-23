@@ -5,8 +5,11 @@ import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
 import nl.novi.beachmatch.entities.BeachEntity;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
-public class BeachDTOMapper {
+public class BeachDTOMapper implements DTOMapper<BeachResponseDTO, BeachRequestDTO, BeachEntity> {
 
     public BeachResponseDTO mapToDto(BeachEntity entity) {
         BeachResponseDTO dto = new BeachResponseDTO();
@@ -19,6 +22,11 @@ public class BeachDTOMapper {
         dto.setLongitude(entity.getLongitude());
 
         return dto;
+    }
+
+    @Override
+    public List<BeachResponseDTO> mapToDto(List<BeachEntity> entities) {
+        return entities.stream().map(this::mapToDto).collect(Collectors.toList());
     }
 
     public BeachEntity mapToEntity(BeachRequestDTO dto) {
