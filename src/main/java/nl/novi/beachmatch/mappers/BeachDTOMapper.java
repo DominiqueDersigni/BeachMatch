@@ -6,12 +6,19 @@ import nl.novi.beachmatch.entities.BeachEntity;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 @Primary
 public class BeachDTOMapper implements DTOMapper<BeachResponseDTO, BeachRequestDTO, BeachEntity> {
+
+    private final BeachFeatureDTOMapper beachFeatureDTOMapper;
+
+    public BeachDTOMapper(BeachFeatureDTOMapper beachFeatureDTOMapper) {
+        this.beachFeatureDTOMapper = beachFeatureDTOMapper;
+    }
 
     @Override
     public BeachResponseDTO mapToDto(BeachEntity model) {
@@ -26,7 +33,9 @@ public class BeachDTOMapper implements DTOMapper<BeachResponseDTO, BeachRequestD
         target.setProvince(model.getProvince());
         target.setLatitude(model.getLatitude());
         target.setLongitude(model.getLongitude());
-
+        if(model.getBeachFeatures() != null){
+            target.setBeachFeatures(beachFeatureDTOMapper.mapToDto(new ArrayList<>(model.getBeachFeatures())));
+        }
         return target;
     }
 

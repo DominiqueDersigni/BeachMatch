@@ -1,5 +1,9 @@
 package nl.novi.beachmatch.dtos.beach;
 
+import nl.novi.beachmatch.dtos.beachfeature.BeachFeatureResponseDTO;
+
+import java.util.List;
+
 public class BeachResponseDTO {
     private Long id;
     private String name;
@@ -7,6 +11,7 @@ public class BeachResponseDTO {
     private String province;
     private Double latitude;
     private Double longitude;
+    private List<BeachFeatureResponseDTO> beachFeatures;
 
     public Long getId() {
         return id;
@@ -54,5 +59,13 @@ public class BeachResponseDTO {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public List<BeachFeatureResponseDTO> getBeachFeatures() {
+        return beachFeatures;
+    }
+
+    public void setBeachFeatures(List<BeachFeatureResponseDTO> beachFeatures) {
+        this.beachFeatures = beachFeatures;
     }
 }
