@@ -16,13 +16,12 @@ public class UserDTOMapper implements DTOMapper<UserResponseDTO, UserRequestDTO,
 
         var result = new UserResponseDTO();
         result.setId(model.getUserId());
-        if(model.getBeach() != null){
-            result.setBeachId(model.getBeach().getBeachId());
-            result.setBeachName(model.getBeach().getName());
-        }
-        if(model.getUser() != null){
-            result.setUserName(model.getUser().getName());
-        }
+        result.setName(model.getName());
+        result.setAddress(model.getAddress());
+        result.setCity(model.getCity());
+        result.setAge(model.getAge());
+        result.setEmail(model.getEmail());
+        result.setModesOfTransport(model.getModesOfTransport());
         return result;
     }
 
@@ -40,9 +39,10 @@ public class UserDTOMapper implements DTOMapper<UserResponseDTO, UserRequestDTO,
     @Override
     public UserEntity mapToEntity(UserRequestDTO userModel) {
         var result = new UserEntity();
-        result.setTitle(userModel.getTitle());
-        result.setText(userModel.getText());
-        result.setScore(userModel.getScore());
+        result.setAddress(userModel.getAddress());
+        result.setCity(userModel.getCity());
+        result.setAge(userModel.getAge());
+        result.setModesOfTransport(userModel.getModesOfTransport());
         return result;
     }
 }
