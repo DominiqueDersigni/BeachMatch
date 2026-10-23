@@ -19,16 +19,14 @@ public class BeachEntity {
     private Double latitude;
     private Double longitude;
 
-
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "photo_id")
     private BeachPhotoEntity photo;
 
-    @OneToMany(mappedBy = "beach")
+    @OneToMany(mappedBy = "beach", cascade = CascadeType.REMOVE)
     private List<ReviewEntity> reviews;
 
-    @OneToMany(mappedBy = "beach")
+    @OneToMany(mappedBy = "beach", cascade = CascadeType.REMOVE)
     private List<FavoriteEntity> favorites;
 
     @ManyToMany()
