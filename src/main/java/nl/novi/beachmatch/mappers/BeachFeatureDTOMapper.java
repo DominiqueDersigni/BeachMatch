@@ -1,44 +1,42 @@
 package nl.novi.beachmatch.mappers;
 
-import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
-import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
+
 import nl.novi.beachmatch.dtos.beachfeature.BeachFeatureRequestDTO;
 import nl.novi.beachmatch.dtos.beachfeature.BeachFeatureResponseDTO;
-import nl.novi.beachmatch.entities.BeachEntity;
 import nl.novi.beachmatch.entities.BeachFeatureEntity;
+import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class BeachFeatureDTOMapper {implements DTOMapper<BeachFeatureResponseDTO, BeachFeatureRequestDTO, BeachFeatureEntity> {
+@Component
+public class BeachFeatureDTOMapper implements DTOMapper<BeachFeatureResponseDTO, BeachFeatureRequestDTO, BeachFeatureEntity> {
 
     @Override
-    public BeachFeatureResponseDTO mapToDto(BeachFeatureEntity feature) {
-        BeachFeatureResponseDTO dto = new BeachFeatureResponseDTO();
+    public BeachFeatureResponseDTO mapToDto(BeachFeatureEntity model) {
+        var result = new BeachFeatureResponseDTO();
 
-        dto.setId(entity.getBeachId());
-        dto.setName(entity.getName());
-        dto.setDescription(entity.getDescription());
-        dto.setProvince(entity.getProvince());
-        dto.setLatitude(entity.getLatitude());
-        dto.setLongitude(entity.getLongitude());
+        result.setId(model.getBeachFeatureId());
+        result.setName(model.getName());
+        result.setDescription(model.getDescription());
 
-        return dto;
+        return result;
     }
 
     @Override
-    public List<BeachResponseDTO> mapToDto(List<BeachEntity> entities) {
-        return entities.stream().map(this::mapToDto).collect(Collectors.toList());
+    public List<BeachFeatureResponseDTO> mapToDto(List<BeachFeatureEntity> models) {
+        var result = new ArrayList<BeachFeatureResponseDTO>();
+        for (BeachFeatureEntity model : models) {
+            result.add(mapToDto(model));
+        }
+        return result;
     }
 
-    public BeachEntity mapToEntity(BeachRequestDTO dto) {
-        BeachEntity entity = new BeachEntity();
-        entity.setName(dto.getName());
-        entity.setDescription(dto.getDescription());
-        entity.setProvince(dto.getProvince());
-        entity.setLatitude(dto.getLatitude());
-        entity.setLongitude(dto.getLongitude());
-        return entity;
+    @Override
+    public BeachFeatureEntity mapToEntity(BeachFeatureRequestDTO featureModel) {
+        var result = new BeachFeatureEntity();
+        result.setName(featureModel.getName());
+        result.setDescription(featureModel.getDescription());
+        return result;
     }
-}
 }
