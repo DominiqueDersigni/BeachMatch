@@ -26,7 +26,7 @@ public class BeachEntity {
     private BeachPhotoEntity photo;
 
     @OneToMany(mappedBy = "beach")
-    private List<ReviewEntity> reviewList;
+    private List<ReviewEntity> reviews;
 
     @OneToMany(mappedBy = "beach")
     private List<FavoriteEntity> favorites;
@@ -95,12 +95,12 @@ public class BeachEntity {
         this.photo = photo;
     }
 
-    public List<ReviewEntity> getReviewList() {
-        return reviewList;
+    public List<ReviewEntity> getReviews() {
+        return reviews;
     }
 
-    public void setReviewList(List<ReviewEntity> reviewList) {
-        this.reviewList = reviewList;
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 
     public List<FavoriteEntity> getFavorites() {
