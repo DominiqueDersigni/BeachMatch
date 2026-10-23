@@ -4,9 +4,12 @@ import nl.novi.beachmatch.dtos.beach.BeachExtendedResponseDTO;
 import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
 import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
 import nl.novi.beachmatch.entities.BeachEntity;
+import nl.novi.beachmatch.entities.BeachFeatureEntity;
 import nl.novi.beachmatch.exceptions.RecordNotFoundException;
 import nl.novi.beachmatch.mappers.BeachDTOMapper;
 import nl.novi.beachmatch.mappers.BeachExtendedDTOMapper;
+import nl.novi.beachmatch.mappers.BeachFeatureDTOMapper;
+import nl.novi.beachmatch.repositories.BeachFeatureRepository;
 import nl.novi.beachmatch.repositories.BeachRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,11 +22,13 @@ public class BeachService {
     private final BeachRepository beachRepository;
     private final BeachDTOMapper beachDTOMapper;
     private final BeachExtendedDTOMapper beachExtendedDTOMapper;
+    private final BeachFeatureRepository beachFeatureRepository;
 
-    public BeachService(BeachRepository beachRepository, BeachDTOMapper beachDTOMapper, BeachExtendedDTOMapper beachExtendedDTOMapper) {
+    public BeachService(BeachRepository beachRepository, BeachDTOMapper beachDTOMapper, BeachExtendedDTOMapper beachExtendedDTOMapper, BeachFeatureRepository beachFeatureRepository) {
         this.beachRepository = beachRepository;
         this.beachDTOMapper = beachDTOMapper;
         this.beachExtendedDTOMapper = beachExtendedDTOMapper;
+        this.beachFeatureRepository = beachFeatureRepository;
     }
 
     private BeachEntity getBeachEntity(Long id) {
@@ -67,5 +72,23 @@ public class BeachService {
     public void deleteBeach(Long id) {
         BeachEntity beach = getBeachEntity(id);
         beachRepository.delete(beach);
+    }
+
+    @Transactional
+    public void linkBeachFeature(Long beachId, Long beachFeatureId) {
+        BeachEntity existingBeachEntity = getBeachEntity(beachId);
+        BeachFeatureEntity existingBeachFeatureEntity = beachFeatureRepository.findById(beachFeatureId)
+                .orElseThrow(() -> new RecordNotFoundException("BeachFeature " + beachFeatureId + " not found"));
+               existingBeachEntity.getBeachFeatures().add(existingBeachFeatureEntity);
+        beachRepository.save(existingBeachEntity);
+    }
+
+    @Transactional
+    public void unlinkBeachFeature(Long beachId, Long beachFeatureId) {
+        BeachEntity existingBeachEntity = getBeachEntity(beachId);
+        BeachFeatureEntity existingBeachFeatureEntity = beachFeatureRepository.findById(beachFeatureId)
+                .orElseThrow(() -> new RecordNotFoundException("BeachFeature " + beachFeatureId + " not found"));
+        existingBeachEntity.getBeachFeatures().remove(existingBeachFeatureEntity);
+        beachRepository.save(existingBeachEntity);
     }
 }
