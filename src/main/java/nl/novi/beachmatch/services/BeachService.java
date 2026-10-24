@@ -8,7 +8,6 @@ import nl.novi.beachmatch.entities.BeachFeatureEntity;
 import nl.novi.beachmatch.exceptions.RecordNotFoundException;
 import nl.novi.beachmatch.mappers.BeachDTOMapper;
 import nl.novi.beachmatch.mappers.BeachExtendedDTOMapper;
-import nl.novi.beachmatch.mappers.BeachFeatureDTOMapper;
 import nl.novi.beachmatch.repositories.BeachFeatureRepository;
 import nl.novi.beachmatch.repositories.BeachRepository;
 import org.springframework.stereotype.Service;
