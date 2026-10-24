@@ -1,16 +1,13 @@
 package nl.novi.beachmatch.services;
 
-import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
-import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
 import nl.novi.beachmatch.dtos.review.ReviewRequestDTO;
 import nl.novi.beachmatch.dtos.review.ReviewResponseDTO;
-import nl.novi.beachmatch.dtos.user.UserResponseDTO;
 import nl.novi.beachmatch.entities.BeachEntity;
 import nl.novi.beachmatch.entities.ReviewEntity;
 import nl.novi.beachmatch.entities.UserEntity;
 import nl.novi.beachmatch.exceptions.AccessDeniedException;
 import nl.novi.beachmatch.exceptions.RecordNotFoundException;
-import nl.novi.beachmatch.mappers.ReviewDTOMapper;;
+import nl.novi.beachmatch.mappers.ReviewDTOMapper;
 import nl.novi.beachmatch.repositories.BeachRepository;
 import nl.novi.beachmatch.repositories.ReviewRepository;
 import nl.novi.beachmatch.repositories.UserRepository;
