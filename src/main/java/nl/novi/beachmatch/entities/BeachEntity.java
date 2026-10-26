@@ -19,16 +19,14 @@ public class BeachEntity {
     private Double latitude;
     private Double longitude;
 
-
-
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "photo_id")
     private BeachPhotoEntity photo;
 
-    @OneToMany(mappedBy = "beach")
-    private List<ReviewEntity> reviewList;
+    @OneToMany(mappedBy = "beach", cascade = CascadeType.REMOVE)
+    private List<ReviewEntity> reviews;
 
-    @OneToMany(mappedBy = "beach")
+    @OneToMany(mappedBy = "beach", cascade = CascadeType.REMOVE)
     private List<FavoriteEntity> favorites;
 
     @ManyToMany()
@@ -95,12 +93,12 @@ public class BeachEntity {
         this.photo = photo;
     }
 
-    public List<ReviewEntity> getReviewList() {
-        return reviewList;
+    public List<ReviewEntity> getReviews() {
+        return reviews;
     }
 
-    public void setReviewList(List<ReviewEntity> reviewList) {
-        this.reviewList = reviewList;
+    public void setReviews(List<ReviewEntity> reviews) {
+        this.reviews = reviews;
     }
 
     public List<FavoriteEntity> getFavorites() {
