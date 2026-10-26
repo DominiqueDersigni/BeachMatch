@@ -10,4 +10,4 @@ public class BeachMatchApplication {
         SpringApplication.run(BeachMatchApplication.class, args);
     }
 
-}
+}c
