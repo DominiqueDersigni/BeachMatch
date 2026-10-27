@@ -24,7 +24,7 @@ public class BeachController {
     }
 
     @GetMapping
-    public ResponseEntity<List<BeachResponseDTO>> findAllBeaches() {
+    public ResponseEntity<List<BeachResponseDTO>> getAllBeaches() {
         List<BeachResponseDTO> beaches = beachService.findAllBeaches();
         return new ResponseEntity<>(beaches, HttpStatus.OK);
     }
@@ -37,7 +37,6 @@ public class BeachController {
 
     @PostMapping
     public ResponseEntity<BeachResponseDTO> createBeach(@RequestBody BeachRequestDTO beachRequestDTO) {
-        ;
         BeachResponseDTO beachDTO = beachService.createBeach(beachRequestDTO);
         return ResponseEntity.created(urlHelper.getCurrentUrlWithId(beachDTO.getId())).body(beachDTO);
     }
