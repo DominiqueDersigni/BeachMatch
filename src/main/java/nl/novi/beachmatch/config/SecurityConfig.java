@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
@@ -42,7 +44,7 @@ public class SecurityConfig {
                                 .decoder(jwtDecoder())
                         ))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/users/me/**", "/reviews/**", "/favorites/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/users/*", "/reviews/**", "/favorites/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/beaches/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/beachfeatures/**").permitAll()
