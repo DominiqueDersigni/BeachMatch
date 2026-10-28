@@ -5,6 +5,7 @@ import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
 import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
 import nl.novi.beachmatch.entities.BeachEntity;
 import nl.novi.beachmatch.entities.BeachFeatureEntity;
+import nl.novi.beachmatch.entities.BeachPhotoEntity;
 import nl.novi.beachmatch.exceptions.RecordNotFoundException;
 import nl.novi.beachmatch.mappers.BeachDTOMapper;
 import nl.novi.beachmatch.mappers.BeachExtendedDTOMapper;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BeachService {
@@ -55,7 +57,7 @@ public class BeachService {
     }
 
     @Transactional
-    public BeachResponseDTO updateBeach(Long id, BeachRequestDTO beachModel)  {
+    public BeachResponseDTO updateBeach(Long id, BeachRequestDTO beachModel) {
         BeachEntity existingBeachEntity = getBeachEntity(id);
 
         existingBeachEntity.setName(beachModel.getName());
@@ -78,7 +80,7 @@ public class BeachService {
         BeachEntity existingBeachEntity = getBeachEntity(beachId);
         BeachFeatureEntity existingBeachFeatureEntity = beachFeatureRepository.findById(beachFeatureId)
                 .orElseThrow(() -> new RecordNotFoundException("BeachFeature " + beachFeatureId + " not found"));
-               existingBeachEntity.getBeachFeatures().add(existingBeachFeatureEntity);
+        existingBeachEntity.getBeachFeatures().add(existingBeachFeatureEntity);
         beachRepository.save(existingBeachEntity);
     }
 
@@ -90,4 +92,31 @@ public class BeachService {
         existingBeachEntity.getBeachFeatures().remove(existingBeachFeatureEntity);
         beachRepository.save(existingBeachEntity);
     }
+
+    @Transactional
+    public BeachResponseDTO addBeachPhoto(Long beachId, BeachPhotoEntity beachPhoto) {
+        BeachEntity existingBeachEntity = getBeachEntity(beachId);
+        existingBeachEntity.setBeachPhoto(beachPhoto);
+        existingBeachEntity = beachRepository.save(existingBeachEntity);
+        return beachDTOMapper.mapToDto(existingBeachEntity);
+    }
+
+    @Transactional(readOnly = true)
+    public BeachResponseDTO getPhotoFromBeach(Long beachId, BeachPhotoEntity beachPhoto) {
+        getBeachEntity(beachId).getBeachPhoto();
+        return beachDTOMapper.mapToDto(getBeachEntity(beachId));
+    }
+
+
+    @Transactional(readOnly = true)
+    public BeachPhotoEntity getPhotoFromBeach(Long beachId) {
+        {
+            BeachPhotoEntity photo = getBeachEntity(beachId).getBeachPhoto();
+            if (photo == null) {
+                throw new RecordNotFoundException("Beach " + beachId + " has no photo");
+            }
+            return photo;
+        }
+    }
 }
+

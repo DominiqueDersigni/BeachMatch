@@ -16,7 +16,16 @@ public class BeachPhotoEntity {
     @Lob
     private byte[] data;
 
-    @OneToOne(mappedBy = "photo")
+    public BeachPhotoEntity(String beachPhotoFileName, String beachPhotoContentType, byte[] data) {
+        this.beachPhotoFileName = beachPhotoFileName;
+        this.beachPhotoContentType = beachPhotoContentType;
+        this.data = data;
+    }
+
+    public BeachPhotoEntity() {
+    }
+
+    @OneToOne(mappedBy = "beachPhoto")
     private BeachEntity beach;
 
     public Long getBeachPhotoId() {
@@ -59,3 +68,4 @@ public class BeachPhotoEntity {
         this.beach = beach;
     }
 }
+
