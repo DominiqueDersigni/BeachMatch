@@ -45,6 +45,7 @@ public class SecurityConfig {
                         ))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/favorites/count/**").hasRole("ADMIN")
                         .requestMatchers("/users/*", "/reviews/**", "/favorites/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/beaches/**").permitAll()

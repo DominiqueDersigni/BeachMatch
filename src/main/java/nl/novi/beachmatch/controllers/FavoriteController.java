@@ -3,12 +3,14 @@ package nl.novi.beachmatch.controllers;
 import jakarta.validation.Valid;
 import nl.novi.beachmatch.dtos.favorite.FavoriteRequestDTO;
 import nl.novi.beachmatch.dtos.favorite.FavoriteResponseDTO;
+import nl.novi.beachmatch.exceptions.RecordNotFoundException;
 import nl.novi.beachmatch.helpers.UrlHelper;
 import nl.novi.beachmatch.services.FavoriteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,12 @@ public class FavoriteController {
         String keycloakId = jwt.getClaimAsString("sub");
         List<FavoriteResponseDTO> favorites = favoriteService.findFavoritesByUser(keycloakId);
         return new ResponseEntity<>(favorites, HttpStatus.OK);
+    }
+
+    @GetMapping("/count/{beachId}")
+    public ResponseEntity<Long> countFavoritesByBeach(@PathVariable Long beachId) {
+        long favoriteCount = favoriteService.countFavoritesByBeach(beachId);
+        return new ResponseEntity<>(favoriteCount, HttpStatus.OK);
     }
 
     @PostMapping

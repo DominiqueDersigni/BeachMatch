@@ -38,6 +38,13 @@ public class FavoriteService  {
     }
 
     @Transactional(readOnly = true)
+    public long countFavoritesByBeach(Long beachId) {
+        beachRepository.findById(beachId)
+                .orElseThrow(() -> new RecordNotFoundException("Beach " + beachId + " not found"));
+        return favoriteRepository.countFavoritesByBeach_BeachId(beachId);
+    }
+
+    @Transactional(readOnly = true)
     public List<FavoriteResponseDTO> findFavoritesByUser(String keycloakId) {
         UserEntity user = userRepository.findByKeycloakId(keycloakId)
                 .orElseThrow(() -> new RecordNotFoundException("User " + keycloakId + " not found"));
