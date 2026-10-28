@@ -21,7 +21,7 @@ public class BeachEntity {
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "photo_id")
-    private BeachPhotoEntity photo;
+    private BeachPhotoEntity beachPhoto;
 
     @OneToMany(mappedBy = "beach", cascade = CascadeType.REMOVE)
     private List<ReviewEntity> reviews;
@@ -85,12 +85,12 @@ public class BeachEntity {
         this.description = description;
     }
 
-    public BeachPhotoEntity getPhoto() {
-        return photo;
+    public BeachPhotoEntity getBeachPhoto() {
+        return beachPhoto;
     }
 
-    public void setPhoto(BeachPhotoEntity photo) {
-        this.photo = photo;
+    public void setBeachPhoto(BeachPhotoEntity beachPhoto) {
+        this.beachPhoto = beachPhoto;
     }
 
     public List<ReviewEntity> getReviews() {

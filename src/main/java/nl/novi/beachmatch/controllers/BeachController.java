@@ -3,23 +3,30 @@ package nl.novi.beachmatch.controllers;
 import nl.novi.beachmatch.dtos.beach.BeachExtendedResponseDTO;
 import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
 import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
+import nl.novi.beachmatch.entities.BeachEntity;
+import nl.novi.beachmatch.entities.BeachPhotoEntity;
 import nl.novi.beachmatch.helpers.UrlHelper;
+import nl.novi.beachmatch.services.BeachPhotoService;
 import nl.novi.beachmatch.services.BeachService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/beaches")
 public class BeachController {
     private final BeachService beachService;
+    private final BeachPhotoService beachPhotoService;
     private final UrlHelper urlHelper;
 
 
-    public BeachController(BeachService beachService, UrlHelper urlHelper) {
+    public BeachController(BeachService beachService, BeachPhotoService beachPhotoService, UrlHelper urlHelper) {
         this.beachService = beachService;
+        this.beachPhotoService = beachPhotoService;
         this.urlHelper = urlHelper;
     }
 
@@ -63,5 +70,30 @@ public class BeachController {
     public ResponseEntity<Void> unlinkBeachFeature(@PathVariable Long beachId, @PathVariable Long beachFeatureId) {
         beachService.unlinkBeachFeature(beachId, beachFeatureId);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/photo")
+    public ResponseEntity<BeachResponseDTO> addPhotoToBeach(@PathVariable("id") Long beachId,
+                                                            @RequestBody MultipartFile file) throws IOException {
+        BeachPhotoEntity beachPhoto = beachPhotoService.storeFile(file);
+        BeachResponseDTO beachDTO = beachService.addBeachPhoto(beachId, beachPhoto);
+        return ResponseEntity.created(urlHelper.getCurrentUrl()).body(beachDTO);
+    }
+
+
+    @GetMapping("/{id}/photo")
+    public ResponseEntity<byte[]> getBeachPhoto(@PathVariable("id") Long beachId) {
+        BeachPhotoEntity beachPhoto = beachService.getPhotoFromBeach(beachId);
+        MediaType mediaType;
+        try {
+            mediaType = MediaType.parseMediaType(beachPhoto.getBeachPhotoContentType());
+        } catch (InvalidMediaTypeException ignore) {
+            mediaType = MediaType.APPLICATION_OCTET_STREAM;
+        }
+        return ResponseEntity
+                .ok()
+                .contentType(mediaType)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + beachPhoto.getBeachPhotoFileName())
+                .body(beachPhoto.getData());
     }
 }
