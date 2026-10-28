@@ -9,5 +9,6 @@ public class BeachMatchApplication {
     public static void main(String[] args) {
         SpringApplication.run(BeachMatchApplication.class, args);
     }
+ }
 
-}
+

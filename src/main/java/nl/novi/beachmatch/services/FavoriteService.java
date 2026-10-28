@@ -37,6 +37,20 @@ public class FavoriteService  {
         return existingFavoriteEntity;
     }
 
+    @Transactional(readOnly = true)
+    public long countFavoritesByBeach(Long beachId) {
+        beachRepository.findById(beachId)
+                .orElseThrow(() -> new RecordNotFoundException("Beach " + beachId + " not found"));
+        return favoriteRepository.countFavoritesByBeach_BeachId(beachId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<FavoriteResponseDTO> findFavoritesByUser(String keycloakId) {
+        UserEntity user = userRepository.findByKeycloakId(keycloakId)
+                .orElseThrow(() -> new RecordNotFoundException("User " + keycloakId + " not found"));
+        return favoriteDTOMapper.mapToDto(user.getFavorites());
+    }
+
     @Transactional
     public FavoriteResponseDTO addFavorite(String keycloakId, FavoriteRequestDTO favoriteModel) {
 
@@ -53,15 +67,7 @@ public class FavoriteService  {
         return favoriteDTOMapper.mapToDto(favoriteEntity);
     }
 
-    @Transactional(readOnly = true)
-    public List<FavoriteResponseDTO> findFavoritesByUser(String keycloakId) {
-        UserEntity user = userRepository.findByKeycloakId(keycloakId)
-                .orElseThrow(() -> new RecordNotFoundException("User " + keycloakId + " not found"));
-        return favoriteDTOMapper.mapToDto(user.getFavorites());
-    }
-
-
-    @Transactional
+       @Transactional
     public void deleteFavorite(String keycloakId, Long favoriteId) {
         FavoriteEntity favorite = getFavoriteEntity(favoriteId);
         if (!favorite.getUser().getKeycloakId().equals(keycloakId)) {
@@ -69,7 +75,4 @@ public class FavoriteService  {
         }
         favoriteRepository.delete(favorite);
     }
-
-
-
 }

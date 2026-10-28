@@ -24,15 +24,23 @@ public class BeachFeatureService {
         this.beachRepository = beachRepository;
         this.beachFeatureDTOMapper = beachFeatureDTOMapper;
     }
-    @Transactional(readOnly = true)
-    public List<BeachFeatureResponseDTO> findAllBeachFeatures() {
-        return beachFeatureDTOMapper.mapToDto(beachFeatureRepository.findAll());
+
+    @Transactional
+    private BeachFeatureEntity getBeachFeatureEntity(Long id) {
+        BeachFeatureEntity existingBeachFeatureEntity = beachFeatureRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException("BeachFeature " + id +" not found"));
+        return existingBeachFeatureEntity;
     }
 
     @Transactional(readOnly = true)
     public BeachFeatureResponseDTO findBeachFeatureById(Long id)  {
         BeachFeatureEntity beachFeatureEntity = getBeachFeatureEntity(id);
         return beachFeatureDTOMapper.mapToDto(beachFeatureEntity);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BeachFeatureResponseDTO> findAllBeachFeatures() {
+        return beachFeatureDTOMapper.mapToDto(beachFeatureRepository.findAll());
     }
 
     @Transactional
@@ -53,12 +61,7 @@ public class BeachFeatureService {
         return beachFeatureDTOMapper.mapToDto(existingBeachFeatureEntity);
     }
 
-    @Transactional
-    private BeachFeatureEntity getBeachFeatureEntity(Long id) {
-        BeachFeatureEntity existingBeachFeatureEntity = beachFeatureRepository.findById(id)
-                .orElseThrow(() -> new RecordNotFoundException("BeachFeature " + id +" not found"));
-        return existingBeachFeatureEntity;
-    }
+
 
     @Transactional
     public void deleteBeachFeature(Long id) {
