@@ -3,6 +3,7 @@ package nl.novi.beachmatch.mappers;
 import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
 import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
 import nl.novi.beachmatch.entities.BeachEntity;
+import nl.novi.beachmatch.entities.ReviewEntity;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,13 @@ public class BeachDTOMapper implements DTOMapper<BeachResponseDTO, BeachRequestD
         target.setLongitude(model.getLongitude());
         if(model.getBeachFeatures() != null){
             target.setBeachFeatures(beachFeatureDTOMapper.mapToDto(new ArrayList<>(model.getBeachFeatures())));
+        }
+        if(model.getReviews() != null && !model.getReviews().isEmpty()) {
+            double total = 0.0;
+            for (ReviewEntity review : model.getReviews()) {
+                total += review.getScore();
+            }
+            target.setRating(total / model.getReviews().size());
         }
         return target;
     }
