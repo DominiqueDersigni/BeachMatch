@@ -102,8 +102,11 @@ class BeachControllerIntegrationTest {
         // Arrange:
         String requestJson = """
             {
-                "name": "Strand Zuid",
-                "description": "A wide sandy beach with white soft sand and gentle waves, perfect for families and long walks. Behind the dunes you find a cozy beach club with fresh seafood. Lifeguards are present in summer and there is plenty of parking nearby."
+                "name": "Strand Oost",
+                "description": "A wide sandy beach with white soft sand and gentle waves, perfect for families and long walks. Behind the dunes you find a cozy beach club with fresh seafood. Lifeguards are present in summer and there is plenty of parking nearby. In the evening you can enjoy beautiful sunsets over the North Sea from the terrace.",
+                "province": "Zeeland",
+                "longitude": 3.5,
+                "latitude": 51.5
             }
             """;
 

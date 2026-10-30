@@ -1,5 +1,6 @@
 package nl.novi.beachmatch.controllers;
 
+import jakarta.validation.Valid;
 import nl.novi.beachmatch.dtos.beach.BeachExtendedResponseDTO;
 import nl.novi.beachmatch.dtos.beach.BeachRequestDTO;
 import nl.novi.beachmatch.dtos.beach.BeachResponseDTO;
@@ -43,13 +44,13 @@ public class BeachController {
     }
 
     @PostMapping
-    public ResponseEntity<BeachResponseDTO> createBeach(@RequestBody BeachRequestDTO beachRequestDTO) {
+    public ResponseEntity<BeachResponseDTO> createBeach(@Valid @RequestBody BeachRequestDTO beachRequestDTO) {
         BeachResponseDTO beachDTO = beachService.createBeach(beachRequestDTO);
         return ResponseEntity.created(urlHelper.getCurrentUrlWithId(beachDTO.getId())).body(beachDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BeachResponseDTO> updateBeach(@PathVariable Long id, @RequestBody BeachRequestDTO beachRequestDTO) {
+    public ResponseEntity<BeachResponseDTO> updateBeach(@PathVariable Long id, @Valid @RequestBody BeachRequestDTO beachRequestDTO) {
         BeachResponseDTO beachDTO = beachService.updateBeach(id, beachRequestDTO);
         return new ResponseEntity<>(beachDTO, HttpStatus.OK);
     }
