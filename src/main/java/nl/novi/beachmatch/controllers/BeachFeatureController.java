@@ -38,13 +38,13 @@ public class  BeachFeatureController {
     }
 
     @PostMapping
-    public ResponseEntity<BeachFeatureResponseDTO> createBeachFeature(@RequestBody @Valid BeachFeatureRequestDTO beachFeatureModel) {
+    public ResponseEntity<BeachFeatureResponseDTO> createBeachFeature(@Valid @RequestBody BeachFeatureRequestDTO beachFeatureModel) {
         BeachFeatureResponseDTO newBeachFeature = beachFeatureService.createBeachFeature(beachFeatureModel);
         return ResponseEntity.created(urlHelper.getCurrentUrlWithId(newBeachFeature.getId())).body(newBeachFeature);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BeachFeatureResponseDTO> updateBeachFeature(@PathVariable Long id, @RequestBody @Valid BeachFeatureRequestDTO beachFeatureModel) {
+    public ResponseEntity<BeachFeatureResponseDTO> updateBeachFeature(@PathVariable Long id, @Valid @RequestBody BeachFeatureRequestDTO beachFeatureModel) {
         BeachFeatureResponseDTO updatedBeachFeature = beachFeatureService.updateBeachFeature(id, beachFeatureModel);
         return new ResponseEntity<>(updatedBeachFeature, HttpStatus.OK);
     }
