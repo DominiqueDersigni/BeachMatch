@@ -12,6 +12,7 @@ public class BeachResponseDTO {
     private Double latitude;
     private Double longitude;
     private List<BeachFeatureResponseDTO> beachFeatures;
+    private Double rating;
 
     public Long getId() {
         return id;
@@ -67,5 +68,13 @@ public class BeachResponseDTO {
 
     public void setBeachFeatures(List<BeachFeatureResponseDTO> beachFeatures) {
         this.beachFeatures = beachFeatures;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }

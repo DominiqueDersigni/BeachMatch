@@ -12,7 +12,7 @@ public class ReviewRequestDTO {
     private String text;
     @NotNull(message = "Score cannot be empty")
     @Min(value = 1, message = "Score must be at least one")
-    @Max(value = 10, message = "Score cannot be higher than 10")
+    @Max(value = 5, message = "Score cannot be higher than 5")
     private Integer score;
     @NotNull (message = "beachId cannot be empty")
     private Long beachId;
